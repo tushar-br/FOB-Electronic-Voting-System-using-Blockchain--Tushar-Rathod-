@@ -116,6 +116,45 @@
         </div>
     </main>
 
+    <!-- PDF Preview Section -->
+    <section class="pdf-section">
+        <div class="pdf-container">
+            <div class="pdf-header">
+                <div class="pdf-title">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" />
+                    </svg>
+                    <h2>Official Documentation</h2>
+                </div>
+                <span class="pdf-badge">FOB-236340316058.pdf</span>
+            </div>
+
+            <div class="pdf-preview-wrapper">
+                <iframe src="{{ url_for('view_pdf') }}" class="pdf-preview-frame" title="PDF Preview">
+                </iframe>
+            </div>
+
+            <div class="pdf-actions">
+                <a href="{{ url_for('view_pdf') }}" target="_blank" class="pdf-btn view-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                        <circle cx="12" cy="12" r="3" />
+                    </svg>
+                    View Full Screen
+                </a>
+                <a href="{{ url_for('download_pdf') }}" class="pdf-btn download-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Download PDF
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Live Terminal -->
     <div id="live-terminal" class="live-terminal">
         <div class="terminal-header">

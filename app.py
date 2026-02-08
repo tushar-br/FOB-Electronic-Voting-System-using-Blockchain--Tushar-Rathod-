@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, send_file
 from blockchain import Blockchain
 import hashlib
+import os
 
 app = Flask(__name__)
 app.secret_key = 'academic_demo_key'  # Needed for flash messages
@@ -74,6 +75,18 @@ def submit_vote():
 @app.route('/already_voted')
 def already_voted():
     return render_template('already_voted.html')
+
+@app.route('/pdf/view')
+def view_pdf():
+    """Serve the PDF file for inline viewing in browser"""
+    pdf_path = os.path.join(app.root_path, 'templates', 'PDF', 'FOB-236340316058.pdf')
+    return send_file(pdf_path, mimetype='application/pdf')
+
+@app.route('/pdf/download')
+def download_pdf():
+    """Serve the PDF file for download"""
+    pdf_path = os.path.join(app.root_path, 'templates', 'PDF', 'FOB-236340316058.pdf')
+    return send_file(pdf_path, as_attachment=True, download_name='FOB-236340316058.pdf')
 
 @app.route('/chain')
 def view_chain():

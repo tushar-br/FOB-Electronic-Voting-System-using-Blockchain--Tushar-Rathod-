@@ -876,3 +876,181 @@ body {
     color: #0ea5e9;
     /* Sky blue for hash highlight */
 }
+
+/* PDF Preview Section */
+.pdf-section {
+    padding: 4rem 5%;
+    position: relative;
+    z-index: 5;
+    margin-bottom: 4rem;
+}
+
+.pdf-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+.pdf-container:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.pdf-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.pdf-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pdf-title svg {
+    color: var(--accent-primary);
+    flex-shrink: 0;
+}
+
+.pdf-title h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(to right, #fff, #cbd5e1);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+}
+
+.pdf-badge {
+    background: rgba(0, 242, 234, 0.1);
+    border: 1px solid rgba(0, 242, 234, 0.3);
+    color: var(--accent-primary);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-family: monospace;
+    font-weight: 600;
+}
+
+.pdf-preview-wrapper {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    background: rgba(15, 23, 42, 0.8);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border-dark);
+    margin-bottom: 1.5rem;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.pdf-preview-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+.pdf-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.pdf-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+    cursor: pointer;
+    border: none;
+}
+
+.view-btn {
+    background: linear-gradient(135deg, var(--accent-secondary), #2563eb);
+    color: white;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+.view-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+}
+
+.download-btn {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+.pdf-btn svg {
+    flex-shrink: 0;
+}
+
+/* Responsive Design for PDF Section */
+@media (max-width: 768px) {
+    .pdf-section {
+        padding: 2rem 3%;
+    }
+
+    .pdf-container {
+        padding: 1.5rem;
+    }
+
+    .pdf-title h2 {
+        font-size: 1.4rem;
+    }
+
+    .pdf-preview-wrapper {
+        height: 400px;
+    }
+
+    .pdf-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .pdf-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .pdf-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .pdf-preview-wrapper {
+        height: 300px;
+    }
+
+    .pdf-badge {
+        font-size: 0.75rem;
+        padding: 6px 12px;
+    }
+}
