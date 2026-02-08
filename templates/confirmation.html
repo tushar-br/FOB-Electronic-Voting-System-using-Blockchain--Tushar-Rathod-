@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote Confirmed | Secure Blockchain Voting</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="confirmation-page">
+    <div class="background-overlay"></div>
+
+    <div class="container center-container">
+        <main class="success-card animated-entry">
+            <div class="success-icon-wrapper">
+                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                </svg>
+            </div>
+
+            <h2>Vote Recorded Successfully</h2>
+            <p class="main-msg">Your vote has been immutably added to the blockchain.</p>
+
+            <div class="block-details">
+                <div class="detail-row">
+                    <span class="detail-label">Block Index</span>
+                    <span class="detail-value">#{{ block_index }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Status</span>
+                    <span class="detail-value status-verified">Verified & Hashed</span>
+                </div>
+            </div>
+
+            <p class="ledger-note">🔒 Hash details available in backend ledger.</p>
+
+            <a href="{{ url_for('index') }}" class="secondary-btn">Return to Home</a>
+        </main>
+    </div>
+    <script>
+        // Prevent Back Button on Confirmation
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.pushState(null, null, location.href);
+        };
+    </script>
+
+    <!-- Live Terminal -->
+    <div id="live-terminal" class="live-terminal">
+        <div class="terminal-header">
+            <div class="status-dot"></div>
+            <span>Blockchain Ledger (Live)</span>
+        </div>
+        <div class="terminal-content" id="terminal-logs">
+            <!-- Logs will appear here -->
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='terminal.js') }}"></script>
+</body>
+
+</html>

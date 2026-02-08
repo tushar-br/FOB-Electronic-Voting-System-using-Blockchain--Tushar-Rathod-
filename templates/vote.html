@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cast Vote | Secure Blockchain Voting</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="voting-page">
+    <div class="background-overlay"></div>
+
+    <nav class="top-nav">
+        <div class="nav-brand">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00f2ea" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span>E-Vote Chain</span>
+        </div>
+        <div class="voter-info">
+            <span class="label">Authenticated Voter:</span>
+            <span class="value-mask">{{ voter_id[:2] }}****{{ voter_id[-2:] }}</span>
+        </div>
+    </nav>
+
+    <div class="container main-content">
+        <header class="page-header">
+            <h1>Select Your Candidate</h1>
+            <p>Your vote is final and will be permanently recorded on the blockchain ledger.</p>
+        </header>
+
+        <form action="{{ url_for('submit_vote') }}" method="POST" id="voteForm">
+            <input type="hidden" name="voter_id" value="{{ voter_id }}">
+            <input type="hidden" name="candidate" id="selectedCandidateInput">
+
+            <div class="candidates-grid">
+                {% for candidate in candidates %}
+                <div class="candidate-card" onclick="selectCandidate(this, '{{ candidate.name }}')">
+                    <div class="card-glow" style="background-color: {{ candidate.color }}"></div>
+                    <div class="card-content">
+                        <div class="candidate-avatar">
+                            {% if candidate.id == 'c1' %}
+                            <img src="{{ url_for('static', filename='images/avatar_alice.svg') }}"
+                                alt="{{ candidate.name }}">
+                            {% elif candidate.id == 'c2' %}
+                            <img src="{{ url_for('static', filename='images/avatar_bob.svg') }}"
+                                alt="{{ candidate.name }}">
+                            {% elif candidate.id == 'c3' %}
+                            <img src="{{ url_for('static', filename='images/avatar_charlie.svg') }}"
+                                alt="{{ candidate.name }}">
+                            {% endif %}
+                        </div>
+                        <h3 class="candidate-name">{{ candidate.name }}</h3>
+                        <p class="party-name">{{ candidate.party }}</p>
+                        <div class="selection-status">
+                            <span class="status-circle"></span>
+                            <span class="status-text">Click to Select</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="actions-bar">
+                <button type="submit" class="primary-btn huge-btn" id="submitBtn" disabled>
+                    Confirm My Vote
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function selectCandidate(card, candidateName) {
+            // Deselect all
+            document.querySelectorAll('.candidate-card').forEach(c => c.classList.remove('selected'));
+
+            // Select clicked
+            card.classList.add('selected');
+
+            // Update inputs
+            document.getElementById('selectedCandidateInput').value = candidateName;
+            document.getElementById('submitBtn').disabled = false;
+        }
+
+        // Prevent Back Button
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.go(1);
+        };
+    </script>
+
+    <!-- Live Terminal -->
+    <div id="live-terminal" class="live-terminal">
+        <div class="terminal-header">
+            <span>Blockchain Ledger (Live)</span>
+        </div>
+        <div class="terminal-content" id="terminal-logs">
+            <!-- Logs will appear here -->
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='terminal.js') }}"></script>
+</body>
+
+</html>
