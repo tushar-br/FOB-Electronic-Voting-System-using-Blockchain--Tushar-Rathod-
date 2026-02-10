@@ -7,6 +7,7 @@
     <title>E-Vote Chain | Secure Decentralized Voting</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 </head>
 
 <body class="home-page">
@@ -36,85 +37,155 @@
     </nav>
 
     <main class="hero-section">
-        <div class="hero-content">
-            <h1>The Future of <br><span class="highlight-text">Secure Voting</span></h1>
-            <p class="hero-desc">
-                Experience the next generation of electoral integrity. Powered by SHA-256 blockchain technology for
-                unalterable transparency.
-            </p>
-
-            <div class="feature-pills">
-                <div class="pill">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                    </svg>
-                    Immutable Ledger
-                </div>
-                <div class="pill">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                    </svg>
-                    Real-time Hashing
-                </div>
-                <div class="pill">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                    </svg>
-                    Fraud Proof
+        <div class="hero-left-section">
+            <div class="hero-visual-card">
+                <div class="swing-container">
+                    <div class="lanyard-string"></div>
+                    <div class="lanyard-clip">
+                        <div class="clip-ring"></div>
+                    </div>
+                    <div class="id-card-3d">
+                        <div class="card-hole"></div>
+                        <div class="card-top-bar"></div>
+                        <div class="card-logo-mini">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="brand-icon">
+                                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="white" stroke-width="2" />
+                                <path d="M2 17L12 22L22 17" stroke="white" stroke-width="2" />
+                                <path d="M2 12L12 17L22 12" stroke="white" stroke-width="2" />
+                            </svg>
+                        </div>
+                        <div class="card-avatar">
+                            <img src="{{ url_for('static', filename='images/user_avatar.png') }}" alt="Voter Avatar"
+                                style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                        </div>
+                        <div class="card-info">
+                            <h3>VOTER PASS</h3>
+                            <div class="info-row"><span class="label">SEM</span><span class="val valid">6</span></div>
+                            <div class="info-row"><span class="label">ID NO</span><span class="val">236340316058</span>
+                            </div>
+                            <div class="barcode"></div>
+                        </div>
+                        <div class="hologram-overlay"></div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="login-wrapper">
-            <div class="glass-card login-box">
-                <div class="card-glow-effect"></div>
-                <div class="login-header">
-                    <h2>Voter Portal</h2>
-                    <p>Enter your credentials to access the ballot.</p>
-                </div>
-
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                <div class="alert error-alert">
-                    {{ messages[0] }}
-                </div>
-                {% endif %}
-                {% endwith %}
-
-                <form action="{{ url_for('login') }}" method="POST">
-                    <div class="input-group">
-                        <label for="voter_id">Voter Identification</label>
-                        <div class="input-field">
-                            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                                <circle cx="12" cy="7" r="4" />
-                            </svg>
-                            <input type="text" id="voter_id" name="voter_id" placeholder="Enter ID (e.g., 1001)"
-                                required autocomplete="off">
-                        </div>
+            <div class="login-wrapper">
+                <div class="glass-card login-box">
+                    <div class="card-glow-effect"></div>
+                    <div class="login-header">
+                        <h2>Voter Portal</h2>
+                        <p>Enter your credentials to access the ballot.</p>
                     </div>
 
-                    <button type="submit" class="primary-btn glow-on-hover">
-                        Authenticate & Vote
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </button>
-                </form>
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    <div class="alert error-alert">
+                        {{ messages[0] }}
+                    </div>
+                    {% endif %}
+                    {% endwith %}
 
-                <div class="security-footer">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                    </svg>
-                    <span>Secured by Blockchain Protocol</span>
+                    <form action="{{ url_for('login') }}" method="POST">
+                        <div class="input-group">
+                            <label for="voter_id">Voter Identification</label>
+                            <div class="input-field">
+                                <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                </svg>
+                                <input type="text" id="voter_id" name="voter_id" placeholder="Enter ID (e.g., 1001)"
+                                    required autocomplete="off">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="primary-btn glow-on-hover">
+                            Authenticate & Vote
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </form>
+
+                    <div class="security-footer">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
+                        <span>Secured by Blockchain Protocol</span>
+                    </div>
                 </div>
             </div>
-        </div>
     </main>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="works-header">
+            <h2>How It <span class="highlight-text">Works</span></h2>
+            <p>A transparent and secure process powered by blockchain technology.</p>
+        </div>
+
+        <div class="steps-container">
+            <!-- Step 1 -->
+            <div class="step-card">
+                <div class="step-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5">
+                        <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                        <path d="M9 12l2 2l4 -4" />
+                    </svg>
+                </div>
+                <h3>1. Cast Vote</h3>
+                <p>User logs in securely and selects their preferred candidate. The vote is encrypted immediately.</p>
+            </div>
+
+            <!-- Arrow -->
+            <div class="step-arrow">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card">
+                <div class="step-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5">
+                        <path
+                            d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                        <path d="M3.27 6.96L12 12.01l8.73-5.05" />
+                        <path d="M12 22.08V12" />
+                    </svg>
+                </div>
+                <h3>2. Block Creation</h3>
+                <p>The encrypted vote is bundled into a new block. A unique cryptographic hash is generated.</p>
+            </div>
+
+            <!-- Arrow -->
+            <div class="step-arrow">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card">
+                <div class="step-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5">
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                    </svg>
+                </div>
+                <h3>3. Chain Addition</h3>
+                <p>The new block is linked to the previous block, creating an immutable chain that cannot be altered.
+                </p>
+            </div>
+        </div>
+    </section>
 
     <!-- PDF Preview Section -->
     <section class="pdf-section">

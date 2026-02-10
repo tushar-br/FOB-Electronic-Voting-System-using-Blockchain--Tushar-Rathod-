@@ -11,15 +11,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const triggerBtn = document.createElement('button');
     triggerBtn.className = 'terminal-trigger-btn';
     triggerBtn.innerHTML = `
-        <div class="status-dot"></div>
-        View Blockchain Ledger
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="4 17 10 11 4 5"></polyline>
+            <line x1="12" y1="19" x2="20" y2="19"></line>
+        </svg>
     `;
     document.body.appendChild(triggerBtn);
 
     // --- 2. CREATE CLOSE BUTTON IN HEADER ---
     if (terminalHeader) {
         terminalHeader.innerHTML = `
-            <span>Blockchain Ledger (Live)</span>
+            <span>Blockchain Ledger (Live) ~user/tusharbr</span>
         `;
 
         const closeBtn = document.createElement('button');
@@ -52,33 +54,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- 4. FORMATTING & LOGGING ---
-    function formatTime() {
-        const now = new Date();
-        return now.toLocaleTimeString('en-US', { hour12: false });
-    }
-
-    function appendLog(message, isHash = false) {
-        if (!terminalContent) return; // Guard clause if terminal isn't in DOM yet
+    function appendLog(message, className = '') {
+        if (!terminalContent) return;
 
         const div = document.createElement('div');
-        div.className = 'log-entry';
-
-        const timeSpan = document.createElement('span');
-        timeSpan.className = 'log-time';
-        timeSpan.textContent = `[${formatTime()}]`;
-
-        div.appendChild(timeSpan);
-
-        if (isHash) {
-            const msgSpan = document.createElement('span');
-            msgSpan.className = 'log-hash';
-            msgSpan.textContent = message;
-            div.appendChild(msgSpan);
-        } else {
-            div.appendChild(document.createTextNode(" " + message));
-        }
+        div.className = 'log-entry ' + className;
+        div.textContent = message;
 
         terminalContent.appendChild(div);
+
+        if (terminalContainer.classList.contains('active')) {
+            terminalContent.scrollTop = terminalContent.scrollHeight;
+        }
+    }
+
+    function appendJSON(data) {
+        if (!terminalContent) return;
+
+        const pre = document.createElement('pre');
+        pre.className = 'log-json';
+        pre.textContent = JSON.stringify(data, null, 4);
+        terminalContent.appendChild(pre);
 
         if (terminalContainer.classList.contains('active')) {
             terminalContent.scrollTop = terminalContent.scrollHeight;
@@ -94,12 +90,24 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data.length > currentChainLength) {
                 const newBlocks = data.chain.slice(currentChainLength);
 
-                newBlocks.forEach(block => {
-                    if (currentChainLength === 0 && block.index === 0) {
-                        appendLog(`GENESIS BLOCK INITIALIZED`);
-                    } else {
-                        appendLog(`NEW VOTE BLOCK #${block.index}`);
+                // Print Header for the batch
+                if (newBlocks.length > 0) {
+                    appendLog(`--- Current Blockchain State ---`, 'header-log');
+                }
 
+                newBlocks.forEach(block => {
+                    // Format the block data exactly as requested
+                    appendJSON({
+                        "index": block.index,
+                        "timestamp": block.timestamp,
+                        "voter_id": block.voter_id,
+                        "candidate": block.candidate,
+                        "previous_hash": block.previous_hash,
+                        "hash": block.hash
+                    });
+
+                    if (currentChainLength > 0) {
+                        // Flash button effect for new blocks
                         if (!terminalContainer.classList.contains('active')) {
                             triggerBtn.style.background = '#00f2ea';
                             triggerBtn.style.color = '#000';
@@ -109,11 +117,16 @@ document.addEventListener('DOMContentLoaded', () => {
                             }, 500);
                         }
                     }
-
-                    appendLog(`Hash: ${block.hash}`, true);
-                    appendLog(`Prev: ${block.previous_hash}`, true);
-                    appendLog(`--------------------------------------------------------------------------------`);
                 });
+
+                // Print Footer after the batch
+                if (newBlocks.length > 0) {
+                    appendLog(`--------------------------------`, 'header-log');
+                    // Add an extra newline effect (empty div)
+                    const div = document.createElement('div');
+                    div.innerHTML = '<br>';
+                    terminalContent.appendChild(div);
+                }
 
                 currentChainLength = data.length;
             }

@@ -42,7 +42,9 @@
             <div class="candidates-grid">
                 {% for candidate in candidates %}
                 <div class="candidate-card" onclick="selectCandidate(this, '{{ candidate.name }}')">
-                    <div class="card-glow" style="background-color: {{ candidate.color }}"></div>
+                    <div class="card-glow-bar" style="background-color: {{ candidate.color }}"></div>
+                    <!-- Ambient Glow Background -->
+                    <div class="card-glow" style="color: {{ candidate.color }}"></div>
                     <div class="card-content">
                         <div class="candidate-avatar">
                             {% if candidate.id == 'c1' %}
